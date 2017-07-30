@@ -4,11 +4,7 @@ var inquirer = require("inquirer");
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
-
-  // Your username
   user: "root",
-
-  // Your password
   password: "74958316",
   database: "bamazon"
 });
@@ -33,6 +29,7 @@ function selectAllProducts() {
           res[i].price
       );
     }
+    //ask user to input id of item and how much to buy
     inquirer
       .prompt([
         {
@@ -60,9 +57,10 @@ function selectAllProducts() {
             chosenItem = res[i];
           }
         }
-
+        //check if stock is enough
         if (chosenItem.stock_quantity >= answer.quantity) {
-          var quantity = parseInt(chosenItem.stock_quantity) - parseInt(answer.quantity);
+          var quantity =
+            parseInt(chosenItem.stock_quantity) - parseInt(answer.quantity);
 
           connection.query(
             "UPDATE products SET ? WHERE ?",
@@ -76,6 +74,7 @@ function selectAllProducts() {
             ],
             function(error) {
               if (error) throw error;
+              //total the price
               console.log(
                 "your total is $" + chosenItem.price * answer.quantity
               );
@@ -118,4 +117,4 @@ function selectAllProducts() {
         }
       });
   });
-};
+}

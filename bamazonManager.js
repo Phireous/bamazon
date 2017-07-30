@@ -34,6 +34,7 @@ function managerStuff() {
       .then(function(answer) {
         if (answer.options === "View Products for Sale") {
           if (err) throw err;
+          //list all items for sale
           for (i = 0; i < res.length; i++) {
             console.log(
               "ID: " +
@@ -50,6 +51,7 @@ function managerStuff() {
           }
         } else if (answer.options === "View Low Inventory") {
           if (err) throw err;
+          //list items that are less than 5
           for (i = 0; i < res.length; i++) {
             if (res[i].stock_quantity < 5) {
               console.log(
@@ -61,6 +63,7 @@ function managerStuff() {
             }
           }
         } else if (answer.options === "Add to Inventory") {
+          //get item by id and add to the stock
           for (i = 0; i < res.length; i++) {
             console.log(
               "ID: " +
@@ -92,7 +95,7 @@ function managerStuff() {
               }
             ])
             .then(function(answer) {
-              // continue here
+              
               var chosenItem;
 
               for (i = 0; i < res.length; i++) {
@@ -118,6 +121,7 @@ function managerStuff() {
               );
             });
         } else if (answer.options === "Add New Product") {
+          //add a new product with inputs for name, department, price, and stock
           inquirer
             .prompt([
               {
